@@ -3,17 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Catálogo interactivo de productos tecnológicos con filtro dinámico y modo oscuro." />
+  <meta name="description" content="TechCatalog — La tienda de tecnología más completa. Laptops, smartphones, audio, gaming y más con envío rápido y garantía oficial." />
   <title>TechCatalog — Productos Tecnológicos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body class="light-mode">
 
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="announcement-bar" id="announcement-bar">
+    <p>🚀 <strong>Envío gratis</strong> en pedidos mayores a $150 · Garantía oficial 2 años · <a href="#catalogo" class="announcement-link">Ver ofertas →</a></p>
+    <button class="announcement-close" id="close-announcement" aria-label="Cerrar aviso">✕</button>
+  </div>
+
   <!-- ===== HEADER ===== -->
-  <header class="site-header">
+  <header class="site-header" id="site-header">
     <div class="header-inner">
       <div class="brand">
         <span class="brand-icon" aria-hidden="true">◈</span>
@@ -22,22 +28,53 @@
 
       <nav class="header-nav" aria-label="Navegación principal">
         <a href="#catalogo" class="nav-link">Catálogo</a>
-        <a href="#about" class="nav-link">Acerca de</a>
+        <a href="#features" class="nav-link">Beneficios</a>
+        <a href="#testimonials" class="nav-link">Reseñas</a>
+        <a href="#newsletter" class="nav-link">Newsletter</a>
+        <a href="#about" class="nav-link">Nosotros</a>
       </nav>
 
-      <!-- Dark mode toggle -->
-      <button
-        id="theme-toggle"
-        class="theme-btn"
-        aria-label="Alternar modo oscuro"
-        title="Cambiar tema"
-      >
-        <span class="theme-icon theme-icon--light" aria-hidden="true">☀</span>
-        <span class="theme-icon theme-icon--dark" aria-hidden="true">☽</span>
-        <span class="theme-label">Modo oscuro</span>
-      </button>
+      <div class="header-actions">
+        <!-- Cart button -->
+        <button class="cart-btn" id="cart-btn" aria-label="Ver carrito de compras">
+          <span class="cart-icon" aria-hidden="true">⊕</span>
+          <span class="cart-count" id="cart-count" aria-live="polite">0</span>
+        </button>
+
+        <!-- Dark mode toggle -->
+        <button id="theme-toggle" class="theme-btn" aria-label="Alternar modo oscuro" title="Cambiar tema">
+          <span class="theme-icon theme-icon--light" aria-hidden="true">☀</span>
+          <span class="theme-icon theme-icon--dark" aria-hidden="true">☽</span>
+          <span class="theme-label">Modo oscuro</span>
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-overlay" id="cart-overlay" aria-hidden="true"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Carrito de compras" aria-hidden="true">
+    <div class="cart-header">
+      <h2 class="cart-title">Tu carrito</h2>
+      <button class="cart-close" id="cart-close" aria-label="Cerrar carrito">✕</button>
+    </div>
+    <div class="cart-body" id="cart-body">
+      <div class="cart-empty" id="cart-empty">
+        <span class="cart-empty-icon" aria-hidden="true">◎</span>
+        <p>Tu carrito está vacío</p>
+        <a href="#catalogo" class="btn-accent" id="cart-shop-link">Explorar productos</a>
+      </div>
+      <ul class="cart-items" id="cart-items" aria-label="Artículos en el carrito"></ul>
+    </div>
+    <div class="cart-footer" id="cart-footer" hidden>
+      <div class="cart-summary">
+        <span>Subtotal</span>
+        <strong class="cart-total" id="cart-total">$0</strong>
+      </div>
+      <p class="cart-shipping-note">🚚 Envío gratis en este pedido</p>
+      <button class="btn-checkout">Proceder al pago →</button>
+    </div>
+  </aside>
 
   <!-- ===== HERO ===== -->
   <section class="hero" aria-labelledby="hero-title">
@@ -50,12 +87,99 @@
         Explora nuestra selección curada de productos tecnológicos de vanguardia.
         Usa el buscador para encontrar exactamente lo que necesitas.
       </p>
-      <a href="#catalogo" class="hero-cta">Ver catálogo →</a>
+      <div class="hero-btns">
+        <a href="#catalogo" class="hero-cta">Ver catálogo →</a>
+        <a href="#features" class="hero-cta-secondary">¿Por qué nosotros?</a>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong class="hero-stat-num">+10K</strong>
+          <span class="hero-stat-label">Clientes felices</span>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <strong class="hero-stat-num">98%</strong>
+          <span class="hero-stat-label">Satisfacción</span>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <strong class="hero-stat-num">48h</strong>
+          <span class="hero-stat-label">Entrega express</span>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <strong class="hero-stat-num">2 años</strong>
+          <span class="hero-stat-label">Garantía</span>
+        </div>
+      </div>
     </div>
     <div class="hero-deco" aria-hidden="true">
       <div class="deco-ring deco-ring--1"></div>
       <div class="deco-ring deco-ring--2"></div>
       <div class="deco-ring deco-ring--3"></div>
+      <div class="deco-blob"></div>
+    </div>
+  </section>
+
+  <!-- ===== BRAND LOGOS ===== -->
+  <div class="brands-bar">
+    <div class="brands-inner">
+      <p class="brands-label">Marcas oficiales</p>
+      <div class="brands-logos">
+        <span class="brand-logo">Apple</span>
+        <span class="brand-logo">Samsung</span>
+        <span class="brand-logo">Sony</span>
+        <span class="brand-logo">Dell</span>
+        <span class="brand-logo">ASUS</span>
+        <span class="brand-logo">Logitech</span>
+        <span class="brand-logo">LG</span>
+        <span class="brand-logo">Microsoft</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FEATURES ===== -->
+  <section id="features" class="features-section" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">¿Por qué elegirnos?</p>
+        <h2 id="features-title" class="section-title">La diferencia TechCatalog</h2>
+        <p class="section-sub">Más que una tienda — somos tu aliado tecnológico de confianza.</p>
+      </div>
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">⚡</div>
+          <h3 class="feature-title">Envío Express 48h</h3>
+          <p class="feature-desc">Recibe tu pedido en menos de 48 horas con seguimiento en tiempo real desde el momento de la compra.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">🛡</div>
+          <h3 class="feature-title">Garantía Oficial 2 Años</h3>
+          <p class="feature-desc">Todos nuestros productos cuentan con garantía oficial del fabricante. Sin letra chica, sin complicaciones.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">↩</div>
+          <h3 class="feature-title">Devoluciones Gratuitas</h3>
+          <p class="feature-desc">30 días para devolver cualquier producto sin preguntas. Tu satisfacción es nuestra prioridad número uno.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">💳</div>
+          <h3 class="feature-title">Pago Seguro</h3>
+          <p class="feature-desc">Acepta tarjetas, transferencias y pago en cuotas. Todos los pagos encriptados con SSL de grado bancario.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">🎧</div>
+          <h3 class="feature-title">Soporte 24/7</h3>
+          <p class="feature-desc">Nuestro equipo de expertos está disponible todos los días para asesorarte en tu decisión de compra.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">✦</div>
+          <h3 class="feature-title">Productos Originales</h3>
+          <p class="feature-desc">100% auténticos, obtenidos directamente de distribuidores oficiales autorizados en Colombia y el mundo.</p>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -63,31 +187,59 @@
   <main id="catalogo" class="catalog-section">
     <div class="container">
 
-      <!-- Search bar -->
-      <div class="search-wrapper">
-        <label for="search-input" class="search-label">Buscar productos</label>
-        <div class="search-field">
-          <span class="search-icon" aria-hidden="true">⌕</span>
-          <input
-            type="search"
-            id="search-input"
-            class="search-input"
-            placeholder="Título o descripción…"
-            autocomplete="off"
-            aria-controls="catalog-grid"
-            aria-label="Filtrar productos por título o descripción"
-          />
-          <button id="clear-search" class="clear-btn" aria-label="Limpiar búsqueda" hidden>✕</button>
+      <div class="section-header">
+        <p class="section-eyebrow">Productos destacados</p>
+        <h2 class="section-title">Catálogo 2025</h2>
+        <p class="section-sub">Tecnología de punta seleccionada por nuestros expertos.</p>
+      </div>
+
+      <!-- Category filters -->
+      <div class="category-filters" role="group" aria-label="Filtrar por categoría">
+        <button class="cat-btn active" data-cat="all">Todos</button>
+        <button class="cat-btn" data-cat="Laptop">Laptops</button>
+        <button class="cat-btn" data-cat="Smartphone">Smartphones</button>
+        <button class="cat-btn" data-cat="Audio">Audio</button>
+        <button class="cat-btn" data-cat="Tablet">Tablets</button>
+        <button class="cat-btn" data-cat="Monitor">Monitores</button>
+        <button class="cat-btn" data-cat="Gaming">Gaming</button>
+        <button class="cat-btn" data-cat="Periférico">Periféricos</button>
+        <button class="cat-btn" data-cat="Wearable">Wearables</button>
+      </div>
+
+      <!-- Search + sort bar -->
+      <div class="search-sort-bar">
+        <div class="search-wrapper">
+          <label for="search-input" class="search-label">Buscar productos</label>
+          <div class="search-field">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input
+              type="search"
+              id="search-input"
+              class="search-input"
+              placeholder="Título o descripción…"
+              autocomplete="off"
+              aria-controls="catalog-grid"
+              aria-label="Filtrar productos por título o descripción"
+            />
+            <button id="clear-search" class="clear-btn" aria-label="Limpiar búsqueda" hidden>✕</button>
+          </div>
+          <p id="results-count" class="results-count" aria-live="polite" aria-atomic="true"></p>
         </div>
-        <p id="results-count" class="results-count" aria-live="polite" aria-atomic="true"></p>
+
+        <div class="sort-wrapper">
+          <label for="sort-select" class="sort-label">Ordenar</label>
+          <select id="sort-select" class="sort-select" aria-label="Ordenar productos">
+            <option value="default">Destacados</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+            <option value="name-asc">Nombre: A–Z</option>
+            <option value="name-desc">Nombre: Z–A</option>
+          </select>
+        </div>
       </div>
 
       <!-- Product grid -->
-      <section
-        id="catalog-grid"
-        class="catalog-grid"
-        aria-label="Catálogo de productos"
-      >
+      <section id="catalog-grid" class="catalog-grid" aria-label="Catálogo de productos">
         <!-- Cards generated by JS -->
       </section>
 
@@ -105,6 +257,93 @@
 
     </div>
   </main>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section id="testimonials" class="testimonials-section" aria-labelledby="testimonials-title">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Lo que dicen nuestros clientes</p>
+        <h2 id="testimonials-title" class="section-title">Reseñas reales</h2>
+      </div>
+      <div class="testimonials-grid">
+        <article class="testimonial-card">
+          <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+          <blockquote class="testimonial-text">"Compré el MacBook Pro M3 y llegó en menos de 24 horas. Empaque perfecto, producto original y atención increíble. Sin duda vuelvo a comprar."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">CM</div>
+            <div>
+              <strong class="testimonial-name">Carlos Mendoza</strong>
+              <p class="testimonial-meta">Bogotá · Compra verificada</p>
+            </div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+          <blockquote class="testimonial-text">"Los Sony WH-1000XM5 que pedí llegaron con garantía oficial y un precio mucho mejor que en otras tiendas. La experiencia de compra fue impecable."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">LR</div>
+            <div>
+              <strong class="testimonial-name">Laura Rodríguez</strong>
+              <p class="testimonial-meta">Medellín · Compra verificada</p>
+            </div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+          <blockquote class="testimonial-text">"El soporte al cliente es excepcional. Me asesoraron en elegir el monitor correcto para mi trabajo de diseño. Muy profesionales y honestos."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">AP</div>
+            <div>
+              <strong class="testimonial-name">Andrés Palacios</strong>
+              <p class="testimonial-meta">Cali · Compra verificada</p>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="rating-summary">
+        <div class="rating-big">4.9</div>
+        <div class="rating-stars-big" aria-label="4.9 de 5 estrellas">★★★★★</div>
+        <p class="rating-note">Basado en +2,300 reseñas verificadas</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <section id="newsletter" class="newsletter-section" aria-labelledby="newsletter-title">
+    <div class="container">
+      <div class="newsletter-inner">
+        <div class="newsletter-text">
+          <p class="section-eyebrow" style="text-align:left;">Mantente al día</p>
+          <h2 id="newsletter-title" class="newsletter-title">Ofertas exclusivas<br />para suscriptores</h2>
+          <p class="newsletter-sub">Recibe las mejores ofertas, lanzamientos y noticias tecnológicas directamente en tu bandeja de entrada.</p>
+          <ul class="newsletter-perks">
+            <li>✓ Acceso anticipado a promociones</li>
+            <li>✓ Descuento del 10% en tu primera compra</li>
+            <li>✓ Contenido exclusivo de tecnología</li>
+          </ul>
+        </div>
+        <div class="newsletter-form-wrapper">
+          <form class="newsletter-form" id="newsletter-form" novalidate>
+            <div class="form-group">
+              <label for="nl-name" class="form-label">Nombre</label>
+              <input type="text" id="nl-name" class="form-input" placeholder="Tu nombre" autocomplete="given-name" />
+            </div>
+            <div class="form-group">
+              <label for="nl-email" class="form-label">Correo electrónico</label>
+              <input type="email" id="nl-email" class="form-input" placeholder="tu@correo.com" autocomplete="email" required />
+            </div>
+            <button type="submit" class="btn-newsletter">Suscribirme gratis →</button>
+            <p class="form-privacy">Sin spam. Cancela cuando quieras. <a href="#" class="form-link">Política de privacidad</a></p>
+          </form>
+          <div class="newsletter-success" id="newsletter-success" hidden>
+            <span class="success-icon" aria-hidden="true">✦</span>
+            <h3>¡Bienvenido/a!</h3>
+            <p>Revisa tu correo para confirmar tu suscripción y obtener tu descuento.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ===== ABOUT ===== -->
   <section id="about" class="about-section">
@@ -131,11 +370,73 @@
 
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-copy">© 2025 TechCatalog. Proyecto académico de desarrollo web.</p>
-      <p class="footer-note">Construido con HTML · CSS · JavaScript</p>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="brand footer-brand">
+            <span class="brand-icon" aria-hidden="true">◈</span>
+            <span class="brand-name">TechCatalog</span>
+          </div>
+          <p class="footer-tagline">Tu destino para la tecnología que importa. Productos originales, precios justos, servicio excepcional.</p>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Instagram">Ig</a>
+            <a href="#" class="social-link" aria-label="Twitter">Tw</a>
+            <a href="#" class="social-link" aria-label="YouTube">Yt</a>
+            <a href="#" class="social-link" aria-label="TikTok">Tk</a>
+          </div>
+        </div>
+        <div class="footer-links-col">
+          <h3 class="footer-col-title">Tienda</h3>
+          <ul class="footer-links">
+            <li><a href="#catalogo" class="footer-link">Catálogo</a></li>
+            <li><a href="#" class="footer-link">Ofertas del mes</a></li>
+            <li><a href="#" class="footer-link">Nuevos productos</a></li>
+            <li><a href="#" class="footer-link">Marcas</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h3 class="footer-col-title">Ayuda</h3>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Centro de ayuda</a></li>
+            <li><a href="#" class="footer-link">Política de devoluciones</a></li>
+            <li><a href="#" class="footer-link">Garantías</a></li>
+            <li><a href="#" class="footer-link">Seguimiento de pedidos</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h3 class="footer-col-title">Empresa</h3>
+          <ul class="footer-links">
+            <li><a href="#about" class="footer-link">Sobre nosotros</a></li>
+            <li><a href="#" class="footer-link">Trabaja con nosotros</a></li>
+            <li><a href="#" class="footer-link">Términos de servicio</a></li>
+            <li><a href="#" class="footer-link">Privacidad</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 TechCatalog. Proyecto académico de desarrollo web.</p>
+        <div class="footer-badges">
+          <span class="footer-badge">SSL Seguro</span>
+          <span class="footer-badge">Pago Protegido</span>
+          <span class="footer-badge">Garantía Oficial</span>
+        </div>
+        <p class="footer-note">Construido con HTML · CSS · JavaScript</p>
+      </div>
     </div>
   </footer>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button class="back-to-top" id="back-to-top" aria-label="Volver arriba" hidden>↑</button>
+
+  <!-- ===== PRODUCT MODAL ===== -->
+  <div class="modal-overlay" id="modal-overlay" aria-hidden="true"></div>
+  <div class="product-modal" id="product-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" aria-label="Cerrar">✕</button>
+    <div class="modal-content" id="modal-content"></div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
   <script src="js/app.js"></script>
 </body>
